@@ -1,3 +1,5 @@
+print("🔥 THIS MAIN.PY IS RUNNING 🔥")
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from db.neon import get_db_connection
@@ -17,6 +19,14 @@ app.add_middleware(
 @app.get("/")
 def home():
     return {"message": "Approval backend running"}
+
+@app.get("/debug")
+def debug():
+    return {
+        "file": __file__,
+        "routes": [route.path for route in app.routes]
+    }
+
 
 # ---------------- GET PENDING REPLIES ----------------
 @app.get("/replies")
