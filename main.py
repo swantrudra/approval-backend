@@ -1,10 +1,18 @@
 print("🔥 THIS MAIN.PY IS RUNNING 🔥")
 
+print("STEP 1: main.py loaded")
+
 from fastapi import FastAPI
+print("STEP 2: fastapi imported")
+
 from fastapi.middleware.cors import CORSMiddleware
+print("STEP 3: cors imported")
+
 from db.neon import get_db_connection
+print("STEP 4: db.neon imported")
 
 app = FastAPI(title="Approval Backend")
+print("STEP 5: app created")
 
 # ---------------- CORS ----------------
 app.add_middleware(
@@ -29,6 +37,7 @@ def debug():
 
 
 # ---------------- GET PENDING REPLIES ----------------
+print("STEP 6: before replies route")
 @app.get("/replies")
 def get_replies(platform: str | None = None):
     conn = get_db_connection()
@@ -69,6 +78,7 @@ def get_replies(platform: str | None = None):
         }
         for r in rows
     ]
+print("STEP 7: after replies route")
 
 # ---------------- APPROVE ----------------
 @app.post("/replies/{reply_id}/approve")
